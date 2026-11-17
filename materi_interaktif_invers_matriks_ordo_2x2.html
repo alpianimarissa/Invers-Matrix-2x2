@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Interaktif: Invers Perkalian Matriks Ordo 2x2</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- KaTeX CSS & JS CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+        ],
+        throwOnError: false
+    });"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Penyesuaian tampilan KaTeX agar tetap proporsional di dalam kotak */
+        .katex-display { margin: 0.75rem 0; overflow-x: auto; overflow-y: hidden; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header Navigation -->
+    <header class="bg-indigo-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-2 sm:mb-0">
+                <div class="bg-white text-indigo-600 p-2 rounded-xl font-bold text-xl shadow">📐</div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">Kalkulus & Aljabar Linear</h1>
+                    <p class="text-xs text-indigo-200">Modul Interaktif Invers Matriks Ordo 2×2</p>
+                </div>
+            </div>
+            <nav class="flex flex-wrap gap-2 text-sm font-medium">
+                <a href="#tujuan" class="px-3 py-1.5 rounded-lg bg-indigo-700 hover:bg-indigo-500 transition">Tujuan</a>
+                <a href="#warmup" class="px-3 py-1.5 rounded-lg bg-indigo-700 hover:bg-indigo-500 transition">Warm-Up (6 Soal)</a>
+                <a href="#koneksi" class="px-3 py-1.5 rounded-lg bg-indigo-700 hover:bg-indigo-500 transition">Koneksi Nyata</a>
+                <a href="#materi" class="px-3 py-1.5 rounded-lg bg-indigo-700 hover:bg-indigo-500 transition">Materi & Teori</a>
+                <a href="#contoh" class="px-3 py-1.5 rounded-lg bg-indigo-700 hover:bg-indigo-500 transition">Contoh Soal</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow space-y-12 w-full">
+
+        <!-- SECTION 1: TUJUAN PEMBELAJARAN -->
+        <section id="tujuan" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+            <div class="flex items-center space-x-3 mb-4">
+                <span class="bg-indigo-100 text-indigo-600 font-bold px-3 py-1 rounded-full text-sm">Bagian 1</span>
+                <h2 class="text-2xl font-bold text-slate-900">Tujuan Pembelajaran</h2>
+            </div>
+            <p class="text-slate-600 mb-4 leading-relaxed">
+                Setelah mempelajari modul interaktif ini, Anda diharapkan mampu menguasai konsep dasar hingga tingkat lanjut terkait matriks persegi ordo 2×2, khususnya mengenai invers perkalian matriks.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100 flex items-start space-x-3">
+                    <span class="text-indigo-600 font-bold text-lg">1.</span>
+                    <p class="text-sm text-slate-700">Memahami definisi matriks identitas perkalian $I$ dan sifat-sifat utamanya pada ordo $2 \times 2$.</p>
+                </div>
+                <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100 flex items-start space-x-3">
+                    <span class="text-indigo-600 font-bold text-lg">2.</span>
+                    <p class="text-sm text-slate-700">Menghitung invers perkalian matriks ordo $2 \times 2$ menggunakan rumus determinan dan adjoin ($A^{-1}$).</p>
+                </div>
+                <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100 flex items-start space-x-3">
+                    <span class="text-indigo-600 font-bold text-lg">3.</span>
+                    <p class="text-sm text-slate-700">Mengidentifikasi kondisi matriks singular (determinan nol yang tidak memiliki invers).</p>
+                </div>
+                <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100 flex items-start space-x-3">
+                    <span class="text-indigo-600 font-bold text-lg">4.</span>
+                    <p class="text-sm text-slate-700">Menerapkan sifat-sifat operasional invers matriks (skalar, transpose, invers ganda, dan perkalian dua matriks).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: WARM-UP (6 SOAL OPERASI MATRIKS) -->
+        <section id="warmup" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+            <div class="flex items-center space-x-3 mb-2">
+                <span class="bg-amber-100 text-amber-700 font-bold px-3 py-1 rounded-full text-sm">Bagian 2</span>
+                <h2 class="text-2xl font-bold text-slate-900">Warm-Up: Operasi Dasar Matriks</h2>
+            </div>
+            <p class="text-slate-600 mb-6 text-sm">
+                Sebelum masuk ke materi invers, mari uji kemampuan dasar Anda dalam melakukan operasi penjumlahan, pengurangan, dan perkalian matriks ordo $2 \times 2$ melalui 6 soal latihan interaktif berikut.
+            </p>
+
+            <div id="warmup-container" class="space-y-6">
+                <!-- Soal 1: Penjumlahan -->
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50/50" data-qid="1" data-ans="8,10,3,7">
+                    <h3 class="font-semibold text-slate-800 mb-2">Soal 1 (Penjumlahan Matriks)</h3>
+                    <p class="text-sm text-slate-600 mb-3">Tentukan hasil penjumlahan dari:</p>
+                    <div class="flex flex-wrap items-center gap-3 text-base mb-4 overflow-x-auto py-1">
+                        <div>$$\begin{bmatrix} 2 & 4 \\ 1 & 3 \end{bmatrix} + \begin{bmatrix} 6 & 6 \\ 2 & 4 \end{bmatrix} =$$</div>
+                        <div class="grid grid-cols-2 gap-2 w-32 border-x-2 border-slate-700 rounded-md px-2 py-1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="0">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="2">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="3">
+                        </div>
+                    </div>
+                    <button onclick="checkWarmup(1)" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">Periksa Jawaban</button>
+                    <span class="ml-3 text-sm font-semibold feedback-text"></span>
+                </div>
+
+                <!-- Soal 2: Penjumlahan -->
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50/50" data-qid="2" data-ans="5,9,7,11">
+                    <h3 class="font-semibold text-slate-800 mb-2">Soal 2 (Penjumlahan Matriks)</h3>
+                    <p class="text-sm text-slate-600 mb-3">Tentukan hasil penjumlahan dari:</p>
+                    <div class="flex flex-wrap items-center gap-3 text-base mb-4 overflow-x-auto py-1">
+                        <div>$$\begin{bmatrix} 1 & 3 \\ 2 & 5 \end{bmatrix} + \begin{bmatrix} 4 & 6 \\ 5 & 6 \end{bmatrix} =$$</div>
+                        <div class="grid grid-cols-2 gap-2 w-32 border-x-2 border-slate-700 rounded-md px-2 py-1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="0">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="2">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="3">
+                        </div>
+                    </div>
+                    <button onclick="checkWarmup(2)" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">Periksa Jawaban</button>
+                    <span class="ml-3 text-sm font-semibold feedback-text"></span>
+                </div>
+
+                <!-- Soal 3: Pengurangan -->
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50/50" data-qid="3" data-ans="2,2,1,2">
+                    <h3 class="font-semibold text-slate-800 mb-2">Soal 3 (Pengurangan Matriks)</h3>
+                    <p class="text-sm text-slate-600 mb-3">Tentukan hasil pengurangan dari:</p>
+                    <div class="flex flex-wrap items-center gap-3 text-base mb-4 overflow-x-auto py-1">
+                        <div>$$\begin{bmatrix} 5 & 7 \\ 4 & 6 \end{bmatrix} - \begin{bmatrix} 3 & 5 \\ 3 & 4 \end{bmatrix} =$$</div>
+                        <div class="grid grid-cols-2 gap-2 w-32 border-x-2 border-slate-700 rounded-md px-2 py-1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="0">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="2">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="3">
+                        </div>
+                    </div>
+                    <button onclick="checkWarmup(3)" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">Periksa Jawaban</button>
+                    <span class="ml-3 text-sm font-semibold feedback-text"></span>
+                </div>
+
+                <!-- Soal 4: Pengurangan -->
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50/50" data-qid="4" data-ans="1,3,2,1">
+                    <h3 class="font-semibold text-slate-800 mb-2">Soal 4 (Pengurangan Matriks)</h3>
+                    <p class="text-sm text-slate-600 mb-3">Tentukan hasil pengurangan dari:</p>
+                    <div class="flex flex-wrap items-center gap-3 text-base mb-4 overflow-x-auto py-1">
+                        <div>$$\begin{bmatrix} 4 & 8 \\ 5 & 3 \end{bmatrix} - \begin{bmatrix} 3 & 5 \\ 3 & 2 \end{bmatrix} =$$</div>
+                        <div class="grid grid-cols-2 gap-2 w-32 border-x-2 border-slate-700 rounded-md px-2 py-1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="0">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="2">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="3">
+                        </div>
+                    </div>
+                    <button onclick="checkWarmup(4)" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">Periksa Jawaban</button>
+                    <span class="ml-3 text-sm font-semibold feedback-text"></span>
+                </div>
+
+                <!-- Soal 5: Perkalian -->
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50/50" data-qid="5" data-ans="11,10,15,14">
+                    <h3 class="font-semibold text-slate-800 mb-2">Soal 5 (Perkalian Matriks)</h3>
+                    <p class="text-sm text-slate-600 mb-3">Tentukan hasil perkalian matriks berikut:</p>
+                    <div class="flex flex-wrap items-center gap-3 text-base mb-4 overflow-x-auto py-1">
+                        <div>$$\begin{bmatrix} 1 & 2 \\ 1 & 3 \end{bmatrix} \times \begin{bmatrix} 3 & 2 \\ 4 & 4 \end{bmatrix} =$$</div>
+                        <div class="grid grid-cols-2 gap-2 w-32 border-x-2 border-slate-700 rounded-md px-2 py-1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="0">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="2">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="3">
+                        </div>
+                    </div>
+                    <button onclick="checkWarmup(5)" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">Periksa Jawaban</button>
+                    <span class="ml-3 text-sm font-semibold feedback-text"></span>
+                </div>
+
+                <!-- Soal 6: Perkalian -->
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50/50" data-qid="6" data-ans="22,13,21,14">
+                    <h3 class="font-semibold text-slate-800 mb-2">Soal 6 (Perkalian Matriks)</h3>
+                    <p class="text-sm text-slate-600 mb-3">Tentukan hasil perkalian matriks berikut:</p>
+                    <div class="flex flex-wrap items-center gap-3 text-base mb-4 overflow-x-auto py-1">
+                        <div>$$\begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix} \times \begin{bmatrix} 5 & 2 \\ 4 & 3 \end{bmatrix} =$$</div>
+                        <div class="grid grid-cols-2 gap-2 w-32 border-x-2 border-slate-700 rounded-md px-2 py-1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="0">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="1">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="2">
+                            <input type="number" class="w-full text-center p-1.5 border border-slate-300 rounded-md bg-white q-input focus:ring-2 focus:ring-indigo-500 focus:outline-none" data-idx="3">
+                        </div>
+                    </div>
+                    <button onclick="checkWarmup(6)" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition">Periksa Jawaban</button>
+                    <span class="ml-3 text-sm font-semibold feedback-text"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: KONEKSI NYATA DAN PENERAPAN -->
+        <section id="koneksi" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+            <div class="flex items-center space-x-3 mb-4">
+                <span class="bg-emerald-100 text-emerald-700 font-bold px-3 py-1 rounded-full text-sm">Bagian 3</span>
+                <h2 class="text-2xl font-bold text-slate-900">Koneksi Nyata & Penerapan ke Materi Berikutnya</h2>
+            </div>
+            <div class="space-y-4 text-slate-600 leading-relaxed text-sm sm:text-base">
+                <p>
+                    Dalam aljabar biasa, jika kita memiliki persamaan $2x = 6$, untuk mencari nilai $x$ kita mengalikan kedua ruas dengan invers perkalian dari $2$, yaitu $\frac{1}{2}$ sehingga $x = 6 \times \frac{1}{2} = 3$.
+                </p>
+                <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100 text-emerald-900">
+                    <h4 class="font-bold mb-1">Bagaimana dengan Matriks?</h4>
+                    <p class="text-sm">
+                        Jika kita memiliki sistem persamaan matriks $A \times X = B$, bagaimana cara kita menyelesaikan variabel matriks $X$? Di sinilah konsep <strong>Invers Matriks ($A^{-1}$)</strong> berperan! Dengan mengalikan kedua ruas dari kiri dengan $A^{-1}$, kita mendapatkan $X = A^{-1} \times B$.
+                    </p>
+                </div>
+                <p>
+                    Penerapan nyata invers matriks sangat luas meliputi:
+                </p>
+                <ul class="list-disc list-inside space-y-2 pl-2">
+                    <li><strong>Kriptografi:</strong> Mengenkripsi pesan rahasia menggunakan matriks kunci dan mendekripsinya kembali menggunakan invers matriks kunci tersebut.</li>
+                    <li><strong>Grafika Komputer & Animasi 3D:</strong> Transformasi objek geometris (rotasi, skala, translasi) balik arah.</li>
+                    <li><strong>Ekonomi & Sistem Persamaan Linear:</strong> Menyelesaikan model keseimbangan pasar dengan banyak variabel harga dan kuantitas secara simultan.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 4: MATERI LENGKAP & TEORI -->
+        <section id="materi" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-8">
+            <div class="flex items-center space-x-3">
+                <span class="bg-purple-100 text-purple-700 font-bold px-3 py-1 rounded-full text-sm">Bagian 4</span>
+                <h2 class="text-2xl font-bold text-slate-900">Materi Lengkap: Invers Perkalian Matriks Ordo $2 \times 2$</h2>
+            </div>
+
+            <!-- Sub 4.1 Identitas -->
+            <div class="space-y-3">
+                <h3 class="text-lg font-bold text-slate-800 border-b pb-2">1. Matriks Identitas Perkalian ($I$)</h3>
+                <p class="text-slate-600 text-sm">
+                    Matriks identitas perkalian (dilambangkan dengan $I$) adalah matriks persegi yang memenuhi sifat: $A \times I = I \times A = A$. Untuk ordo $2 \times 2$ dinyatakan sebagai:
+                </p>
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    $$I = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$
+                </div>
+            </div>
+
+            <!-- Sub 4.2 Rumus Invers -->
+            <div class="space-y-3">
+                <h3 class="text-lg font-bold text-slate-800 border-b pb-2">2. Definisi & Rumus Invers Matriks Ordo $2 \times 2$</h3>
+                <p class="text-slate-600 text-sm">
+                    Jika $A$ adalah matriks persegi berordo $2 \times 2$:
+                </p>
+                <div>
+                    $$A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$$
+                </div>
+                <p class="text-slate-600 text-sm">
+                    Maka invers matriks $A$ (dilambangkan $A^{-1}$) dirumuskan sebagai:
+                </p>
+                <div class="p-4 bg-purple-50 rounded-xl border border-purple-100 text-purple-950">
+                    $$A^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$$
+                </div>
+                <p class="text-slate-600 text-sm">
+                    Dimana $(ad - bc)$ dinamakan <strong>determinan matriks $A$</strong> (notasi: $\det(A)$ atau $|A|$). 
+                    Jika $ad - bc = 0$, maka matriks tersebut tidak memiliki invers dan disebut <strong>Matriks Singular</strong>.
+                </p>
+            </div>
+
+            <!-- Sub 4.3 Sifat-sifat Invers -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 border-b pb-2">3. Sifat-Sifat Invers Matriks Ordo $2 \times 2$</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                        <span class="font-bold text-indigo-600 block mb-1">Sifat 1 (Skalar)</span>
+                        <p class="text-slate-600">Jika $k$ adalah bilangan real ($k \neq 0$), maka:</p>
+                        <div class="mt-2 text-slate-800">$$(k \cdot A)^{-1} = \frac{1}{k} A^{-1}$$</div>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                        <span class="font-bold text-indigo-600 block mb-1">Sifat 2 (Transpose)</span>
+                        <p class="text-slate-600">Invers dari transpose sama dengan transpose dari invers:</p>
+                        <div class="mt-2 text-slate-800">$$(A^t)^{-1} = (A^{-1})^t$$</div>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                        <span class="font-bold text-indigo-600 block mb-1">Sifat 3 (Invers Ganda)</span>
+                        <p class="text-slate-600">Invers dari invers suatu matriks adalah matriks itu sendiri:</p>
+                        <div class="mt-2 text-slate-800">$$(A^{-1})^{-1} = A$$</div>
+                    </div>
+                    <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+                        <span class="font-bold text-indigo-600 block mb-1">Sifat 4 (Perkalian Dua Matriks)</span>
+                        <p class="text-slate-600">Invers perkalian matriks $A$ dan $B$ memenuhi sifat urutan terbalik:</p>
+                        <div class="mt-2 text-slate-800">$$(A \times B)^{-1} = B^{-1} \times A^{-1}$$</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: CONTOH SOAL & PEMBAHASAN -->
+        <section id="contoh" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+            <div class="flex items-center space-x-3">
+                <span class="bg-blue-100 text-blue-700 font-bold px-3 py-1 rounded-full text-sm">Bagian 5</span>
+                <h2 class="text-2xl font-bold text-slate-900">Contoh Soal & Pembahasan</h2>
+            </div>
+            <p class="text-slate-600 text-sm">
+                Berikut adalah penjabaran 5 contoh soal komprehensif berdasarkan modul referensi untuk memperdalam pemahaman analitis Anda.
+            </p>
+
+            <div class="space-y-6">
+                <!-- Contoh 1 -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50">
+                    <h3 class="font-bold text-slate-900 mb-2">Contoh Soal 1: Menghitung Invers Dasar</h3>
+                    <p class="text-sm text-slate-600 mb-3">Tentukan invers dari matriks $A = \begin{bmatrix} 2 & 5 \\ 1 & 3 \end{bmatrix}$.</p>
+                    <div class="text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-2">
+                        <p class="font-semibold text-indigo-600">Pembahasan:</p>
+                        <p>1. Hitung determinan: $\det(A) = (2)(3) - (5)(1) = 6 - 5 = 1$</p>
+                        <p>2. Terapkan rumus invers:</p>
+                        <div>$$A^{-1} = \frac{1}{1} \begin{bmatrix} 3 & -5 \\ -1 & 2 \end{bmatrix} = \begin{bmatrix} 3 & -5 \\ -1 & 2 \end{bmatrix}$$</div>
+                    </div>
+                </div>
+
+                <!-- Contoh 2 -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50">
+                    <h3 class="font-bold text-slate-900 mb-2">Contoh Soal 2: Matriks dengan Faktorisasi Skalar</h3>
+                    <p class="text-sm text-slate-600 mb-3">Tentukan invers dari matriks $B = \begin{bmatrix} 32 & -64 \\ 16 & -48 \end{bmatrix}$.</p>
+                    <div class="text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-2">
+                        <p class="font-semibold text-indigo-600">Pembahasan:</p>
+                        <p>1. Keluarkan faktor persekutuan $16$: $B = 16 \begin{bmatrix} 2 & -4 \\ 1 & -3 \end{bmatrix}$</p>
+                        <p>2. Gunakan sifat skalar invers $(k \cdot M)^{-1} = \frac{1}{k} M^{-1}$:</p>
+                        <div>$$B^{-1} = \frac{1}{16} \cdot \frac{1}{(2)(-3) - (-4)(1)} \begin{bmatrix} -3 & 4 \\ -1 & 2 \end{bmatrix} = \frac{1}{16} \cdot \frac{1}{-2} \begin{bmatrix} -3 & 4 \\ -1 & 2 \end{bmatrix}$$</div>
+                        <div>$$B^{-1} = -\frac{1}{32} \begin{bmatrix} -3 & 4 \\ -1 & 2 \end{bmatrix} = \begin{bmatrix} \frac{3}{32} & -\frac{1}{8} \\ \frac{1}{32} & -\frac{1}{16} \end{bmatrix}$$</div>
+                    </div>
+                </div>
+
+                <!-- Contoh 3 -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50">
+                    <h3 class="font-bold text-slate-900 mb-2">Contoh Soal 3: Penerapan Sifat Perkalian Invers</h3>
+                    <p class="text-sm text-slate-600 mb-3">Jika $A = \begin{bmatrix} 5 & -3 \\ 6 & -4 \end{bmatrix}$ dan $B = \begin{bmatrix} 3 & 2 \\ 4 & 3 \end{bmatrix}$, tentukan hasil dari $(A \times B)^{-1} \times A$.</p>
+                    <div class="text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-2">
+                        <p class="font-semibold text-indigo-600">Pembahasan:</p>
+                        <p>1. Gunakan sifat $(A \times B)^{-1} = B^{-1} \times A^{-1}$.</p>
+                        <p>2. Sederhanakan bentuk soal: $(B^{-1} \times A^{-1}) \times A = B^{-1} \times (A^{-1} \times A) = B^{-1} \times I = B^{-1}$.</p>
+                        <p>3. Hitung $B^{-1}$ dari matriks $B$:</p>
+                        <div>$$B^{-1} = \frac{1}{(3)(3) - (2)(4)} \begin{bmatrix} 3 & -2 \\ -4 & 3 \end{bmatrix} = \frac{1}{9 - 8} \begin{bmatrix} 3 & -2 \\ -4 & 3 \end{bmatrix} = \begin{bmatrix} 3 & -2 \\ -4 & 3 \end{bmatrix}$$</div>
+                    </div>
+                </div>
+
+                <!-- Contoh 4 -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50">
+                    <h3 class="font-bold text-slate-900 mb-2">Contoh Soal 4: Matriks Singular</h3>
+                    <p class="text-sm text-slate-600 mb-3">Jika matriks $A = \begin{bmatrix} x-4 & 6-x \\ 3 & x-2 \end{bmatrix}$ merupakan matriks singular, tentukan nilai $x$.</p>
+                    <div class="text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-2">
+                        <p class="font-semibold text-indigo-600">Pembahasan:</p>
+                        <p>1. Syarat matriks singular adalah determinan bernilai nol ($\det(A) = 0$).</p>
+                        <p>2. $(x-4)(x-2) - (6-x)(3) = 0$</p>
+                        <p>3. $x^2 - 6x + 8 - 18 + 3x = 0 \implies x^2 - 3x - 10 = 0$</p>
+                        <p>4. Faktorisasi: $(x - 5)(x + 2) = 0$, sehingga diperoleh $x = 5$ atau $x = -2$.</p>
+                    </div>
+                </div>
+
+                <!-- Contoh 5 -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50">
+                    <h3 class="font-bold text-slate-900 mb-2">Contoh Soal 5: Persamaan Invers Matriks</h3>
+                    <p class="text-sm text-slate-600 mb-3">Jika matriks $A = \begin{bmatrix} 5 & -2 \\ 6 & -2 \end{bmatrix}$ adalah invers dari matriks $B = \begin{bmatrix} -1 & x+y \\ 2x+1 & \frac{5}{2} \end{bmatrix}$, tentukan nilai $x$ dan $y$.</p>
+                    <div class="text-sm text-slate-700 bg-white p-4 rounded-lg border border-slate-200 space-y-2">
+                        <p class="font-semibold text-indigo-600">Pembahasan:</p>
+                        <p>1. Diketahui $A = B^{-1}$ yang artinya $A^{-1} = B$.</p>
+                        <p>2. Hitung $A^{-1}$:</p>
+                        <div>$$A^{-1} = \frac{1}{(5)(-2) - (-2)(6)} \begin{bmatrix} -2 & 2 \\ -6 & 5 \end{bmatrix} = \frac{1}{-10 + 12} \begin{bmatrix} -2 & 2 \\ -6 & 5 \end{bmatrix} = \begin{bmatrix} -1 & 1 \\ -3 & \frac{5}{2} \end{bmatrix}$$</div>
+                        <p>3. Samakan elemen yang seletak dengan matriks $B$:</p>
+                        <p>• $2x + 1 = -3 \implies 2x = -4 \implies x = -2$</p>
+                        <p>• $x + y = 1 \implies -2 + y = 1 \implies y = 3$</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 mt-12 text-center text-sm border-t border-slate-800">
+        <p>Modul Interaktif Aljabar Linear & Matriks • Berdasarkan Kurikulum & Referensi Modul Pembelajaran Matematika</p>
+    </footer>
+
+    <!-- JavaScript for Warm-up Interaction -->
+    <script>
+        function checkWarmup(qid) {
+            const container = document.querySelector(`[data-qid="${qid}"]`);
+            const inputs = container.querySelectorAll('.q-input');
+            const expectedAns = container.getAttribute('data-ans').split(',').map(Number);
+            const feedback = container.querySelector('.feedback-text');
+
+            let userAns = [];
+            let allFilled = true;
+            inputs.forEach(input => {
+                if (input.value === "") allFilled = false;
+                userAns.push(Number(input.value));
+            });
+
+            if (!allFilled) {
+                feedback.textContent = "⚠️ Harap isi semua sel matriks!";
+                feedback.className = "ml-3 text-sm font-semibold text-amber-600 feedback-text";
+                return;
+            }
+
+            let isCorrect = true;
+            for (let i = 0; i < expectedAns.length; i++) {
+                if (userAns[i] !== expectedAns[i]) {
+                    isCorrect = false;
+                    break;
+                }
+            }
+
+            if (isCorrect) {
+                feedback.textContent = "✅ Benar! Kerja bagus!";
+                feedback.className = "ml-3 text-sm font-semibold text-emerald-600 feedback-text";
+            } else {
+                feedback.textContent = "❌ Belum tepat. Coba hitung kembali elemennya.";
+                feedback.className = "ml-3 text-sm font-semibold text-rose-600 feedback-text";
+            }
+        }
+    </script>
+</body>
+</html>
